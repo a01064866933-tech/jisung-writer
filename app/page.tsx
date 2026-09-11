@@ -129,15 +129,15 @@ export default function Home() {
             <form className="proposal-form" onSubmit={submitProposal}>
               <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <div className="proposal-grid">
-                <label>기관·회사명<input name="organization" maxLength={120} /></label>
+                <label>기관·회사명<input name="organization" maxLength={100} /></label>
                 <label>담당자 이름 *<input name="contactName" maxLength={60} required /></label>
                 <label>연락처 *<input name="phone" type="tel" maxLength={20} required /></label>
                 <label>이메일 *<input name="email" type="email" maxLength={160} required /></label>
                 <label>제안 유형 *<select name="proposalType" required><option value="">선택해 주세요</option><option>북토크</option><option>강연</option><option>인터뷰</option><option>콘텐츠 협업</option><option>기타</option></select></label>
                 <label>희망 날짜<input name="eventDate" type="date" /></label>
-                <label>장소<input name="location" maxLength={200} /></label>
-                <label>예산 범위<input name="budget" maxLength={100} placeholder="예: 협의, 100만원" /></label>
-                <label className="full">제안 내용 *<textarea name="detail" maxLength={2000} rows={5} required /></label>
+                <label>장소<input name="location" maxLength={120} /></label>
+                <label>예산 범위<input name="budget" maxLength={80} placeholder="예: 협의, 100만원" /></label>
+                <label className="full">제안 내용 *<textarea name="detail" maxLength={600} rows={5} required /></label>
               </div>
               <label className="proposal-consent"><input name="privacy" type="checkbox" required /> 문의 답변을 위한 개인정보 수집·이용에 동의합니다.</label>
               <button className="button light" type="submit" disabled={submitting}>{submitting ? '접수 중…' : '강연·협업 문의 접수'}</button>
