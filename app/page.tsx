@@ -1,9 +1,63 @@
+'use client';
+
+import { FormEvent, useState } from 'react';
+
 const bookUrl = 'https://product.kyobobook.co.kr/detail/S000220161919?utm_source=threads&utm_medium=social&utm_campaign=author_profile';
+const supabaseUrl = 'https://bdkgplecpebsuznvbaan.supabase.co';
+const supabaseAnonKey = 'sb_publishable_a1J86gLTHEnzRfN8_-5CFQ_tbtcjZOi';
 const writerInstagram = 'https://www.instagram.com/jisung_writer/';
 const threadsUrl = 'https://www.threads.com/@freshday_sandwich';
 const businessUrl = 'https://freshday-link.vercel.app/';
 
 export default function Home() {
+  const [submitting, setSubmitting] = useState(false);
+  const [formMessage, setFormMessage] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  async function submitProposal(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    if (data.get('website')) return;
+    setSubmitting(true);
+    setFormMessage('');
+    const now = new Date();
+    const inquiryCode = `FW-${String(now.getFullYear()).slice(-2)}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+    const detail = String(data.get('detail') || '').trim();
+    const location = String(data.get('location') || '').trim();
+    const budget = String(data.get('budget') || '').trim();
+    const payload = {
+      inquiry_code: inquiryCode,
+      lead_type: 'writer',
+      status: '신규 문의',
+      contact_name: String(data.get('contactName') || '').trim(),
+      phone: String(data.get('phone') || '').trim(),
+      company: String(data.get('organization') || '').trim(),
+      email: String(data.get('email') || '').trim(),
+      event_date: data.get('eventDate') || null,
+      package_type: String(data.get('proposalType') || ''),
+      notes: `장소: ${location || '-'}\n예산: ${budget || '-'}\n제안 내용: ${detail}`,
+      privacy_consent: true,
+      terms_consent: true,
+      source: document.referrer ? new URL(document.referrer).hostname : 'direct'
+    };
+    try {
+      const response = await fetch(`${supabaseUrl}/rest/v1/inquiries`, {
+        method: 'POST',
+        headers: { apikey: supabaseAnonKey, Authorization: `Bearer ${supabaseAnonKey}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error('request failed');
+      form.reset();
+      setSuccess(true);
+      setFormMessage(`문의번호 ${inquiryCode}로 접수되었습니다. 확인 후 연락드리겠습니다.`);
+    } catch {
+      setFormMessage('자동 접수가 지연되고 있습니다. 작가 인스타그램 메시지로 제안 내용을 보내주세요.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
@@ -70,8 +124,25 @@ export default function Home() {
         <div className="shell connect-grid">
           <div><p className="eyebrow">Meet Jisung</p><h2 id="connect-title">사람을 만나고,<br />이야기를 나누고 싶습니다.</h2></div>
           <div className="connect-copy">
-            <p>북토크, 강연, 인터뷰, 콘텐츠 협업을 제안하고 싶다면 작가 Instagram 메시지로 연락해주세요. 제안 목적과 일정, 장소를 함께 보내주시면 확인 후 답변드리겠습니다.</p>
-            <a className="button light" href={writerInstagram} target="_blank" rel="noreferrer">강연·협업 문의하기 <span aria-hidden="true">→</span></a>
+            <p>북토크, 강연, 인터뷰, 콘텐츠 협업의 목적과 일정, 장소를 남겨주시면 확인 후 답변드리겠습니다.</p>
+            <form className="proposal-form" onSubmit={submitProposal}>
+              <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              <div className="proposal-grid">
+                <label>기관·회사명<input name="organization" maxLength={120} /></label>
+                <label>담당자 이름 *<input name="contactName" maxLength={60} required /></label>
+                <label>연락처 *<input name="phone" type="tel" maxLength={20} required /></label>
+                <label>이메일 *<input name="email" type="email" maxLength={160} required /></label>
+                <label>제안 유형 *<select name="proposalType" required><option value="">선택해 주세요</option><option>북토크</option><option>강연</option><option>인터뷰</option><option>콘텐츠 협업</option><option>기타</option></select></label>
+                <label>희망 날짜<input name="eventDate" type="date" /></label>
+                <label>장소<input name="location" maxLength={200} /></label>
+                <label>예산 범위<input name="budget" maxLength={100} placeholder="예: 협의, 100만원" /></label>
+                <label className="full">제안 내용 *<textarea name="detail" maxLength={2000} rows={5} required /></label>
+              </div>
+              <label className="proposal-consent"><input name="privacy" type="checkbox" required /> 문의 답변을 위한 개인정보 수집·이용에 동의합니다.</label>
+              <button className="button light" type="submit" disabled={submitting}>{submitting ? '접수 중…' : '강연·협업 문의 접수'}</button>
+              {formMessage && <p className={success ? 'proposal-message success' : 'proposal-message'} role="status">{formMessage}</p>}
+            </form>
+            <a className="instagram-fallback" href={writerInstagram} target="_blank" rel="noreferrer">작가 Instagram으로 문의하기 ↗</a>
           </div>
         </div>
       </section>
