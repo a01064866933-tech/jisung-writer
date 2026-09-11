@@ -26,6 +26,7 @@ export default function Home() {
     const detail = String(data.get('detail') || '').trim();
     const location = String(data.get('location') || '').trim();
     const budget = String(data.get('budget') || '').trim();
+    const proposalType = String(data.get('proposalType') || '').trim();
     const payload = {
       inquiry_code: inquiryCode,
       lead_type: 'writer',
@@ -35,8 +36,8 @@ export default function Home() {
       company: String(data.get('organization') || '').trim(),
       email: String(data.get('email') || '').trim(),
       event_date: data.get('eventDate') || null,
-      package_type: String(data.get('proposalType') || ''),
-      notes: `장소: ${location || '-'}\n예산: ${budget || '-'}\n제안 내용: ${detail}`,
+      package_type: null,
+      notes: `제안 유형: ${proposalType}\n장소: ${location || '-'}\n예산: ${budget || '-'}\n제안 내용: ${detail}`,
       privacy_consent: true,
       terms_consent: true,
       source: document.referrer ? new URL(document.referrer).hostname : 'direct'
