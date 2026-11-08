@@ -61,7 +61,7 @@ export default function Home() {
         <section className="cta">
           <div>
             <a className="primaryButton" href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">책 만나보기 ↗</a>
-            <a className="secondaryButton" href="mailto:a01064866933@naver.com?subject=%EB%B0%95%EC%A7%80%EC%84%B1%20%EC%9E%91%EA%B0%80%20%EA%B0%95%EC%97%B0%C2%B7%ED%98%91%EC%97%85%20%EB%AC%B8%EC%9D%98">강연·협업 문의 →</a>
+            <a className="secondaryButton" href="/contact">강연·협업 문의 →</a>
           </div>
           <p>신청서를 남겨주시면 확인 후 이메일로 회신드립니다.</p>
         </section>
