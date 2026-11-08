@@ -55,6 +55,7 @@ a { color:inherit; }
 .momentGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
 .moment { position:relative; min-width:0; aspect-ratio:16 / 10; margin:0; overflow:hidden; border-radius:16px; background:#dce9eb; box-shadow:0 8px 22px rgba(4,50,61,.07); }
 .moment img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .45s ease; }
+.momentContained img { padding:10px; object-fit:contain; background:#dfe9e9; }
 .moment:hover img { transform:scale(1.025); }
 .moment::after { content:""; position:absolute; inset:auto 0 0; height:48%; background:linear-gradient(transparent,rgba(2,29,35,.82)); pointer-events:none; }
 .moment figcaption { position:absolute; z-index:1; right:20px; bottom:18px; left:20px; display:grid; gap:3px; color:#fff; }
