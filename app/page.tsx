@@ -29,11 +29,11 @@ const instagramSocials = [
 
 const moments = [
   { src: '/events/kyobo-launch-wide.jpg', category: '교보문고 출간 강연', title: '다섯 평에서 시작된 이야기', alt: '교보문고 출간 강연에서 박지성 작가와 독자들이 함께하는 모습' },
-  { src: '/events/launch-group.jpg', category: '출간 강연', title: '독자와 함께한 출간의 순간', alt: '박지성 작가와 독자들이 다섯 평이면 충분해를 들고 기념 촬영하는 모습' },
+  { src: '/events/launch-group.jpg', category: '충무로 책과강연', title: '출간 강연', alt: '충무로 책과강연 출간 강연에서 박지성 작가와 독자들이 기념 촬영하는 모습' },
   { src: '/events/lecture-audience.jpg', category: '북토크', title: '책을 중심으로 모인 시간', alt: '북토크 현장을 가득 채운 독자들과 강연 무대' },
-  { src: '/events/lecture-story.jpg', category: '강연', title: '삶과 책을 잇는 이야기', alt: '박지성 작가가 자신의 삶과 책 이야기를 강연하는 모습' },
-  { src: '/events/small-booktalk.jpg', category: '독자 모임', title: '작은 자리에서 깊게 나눈 이야기', alt: '작은 북토크에서 박지성 작가와 독자들이 책을 들고 웃는 모습' },
-  { src: '/events/reader-meeting.jpg', category: '독자 만남', title: '책으로 이어진 인연', alt: '박지성 작가와 독자들이 책을 들고 함께한 모습' },
+  { src: '/events/lecture-story.jpg', category: '강연', title: '삶과 책을 잇는 이야기', alt: '박지성 작가가 자신의 삶과 책 이야기를 강연하는 모습', position: 'center 72%' },
+  { src: '/events/small-booktalk.jpg', category: '독자 모임', title: '작은 자리에서 깊게 나눈 이야기', alt: '작은 북토크에서 박지성 작가와 독자들이 책을 들고 웃는 모습', position: 'center 60%' },
+  { src: '/events/reader-meeting.jpg', category: '독자 만남', title: '책으로 이어진 인연', alt: '박지성 작가와 독자들이 책을 들고 함께한 모습', position: 'center 58%' },
 ];
 
 export function WriterLanding({ instagramVariant = false }: { instagramVariant?: boolean }) {
@@ -106,7 +106,7 @@ export function WriterLanding({ instagramVariant = false }: { instagramVariant?:
           <div className="momentGrid">
             {moments.map((moment) => (
               <figure className="moment" key={moment.src}>
-                <img src={moment.src} alt={moment.alt} loading="lazy" />
+                <img src={moment.src} alt={moment.alt} loading="lazy" style={{ objectPosition: moment.position ?? 'center' }} />
                 <figcaption>
                   <span>{moment.category}</span>
                   <strong>{moment.title}</strong>
