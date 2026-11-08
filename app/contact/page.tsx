@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 const supabaseUrl = 'https://bdkgplecpebsuznvbaan.supabase.co';
 const supabaseAnonKey = 'sb_publishable_a1J86gLTHEnzRfN8_-5CFQ_tbtcjZOi';
@@ -9,6 +9,12 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
+  const [backHref, setBackHref] = useState('/');
+
+  useEffect(() => {
+    const source = new URLSearchParams(window.location.search).get('source');
+    setBackHref(source === 'instagram' ? '/instagram' : '/');
+  }, []);
 
   async function submitProposal(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,7 +63,7 @@ export default function ContactPage() {
   return (
     <main className="contactPage">
       <div className="contactWrap">
-        <a className="backLink" href="/">← 작가 페이지로 돌아가기</a>
+        <a className="backLink" href={backHref}>← 작가 페이지로 돌아가기</a>
         <header className="contactHeader">
           <p>Talk &amp; Collaboration</p>
           <h1>강연·협업 문의</h1>
