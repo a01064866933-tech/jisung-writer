@@ -39,6 +39,21 @@ export function WriterLanding({ instagramVariant = false }: { instagramVariant?:
       </section>
 
       <section className="content wrap">
+        <section className="authorProfile" aria-labelledby="author-title">
+          <p className="eyebrow">About the Author</p>
+          <h2 id="author-title">작은 가게에서 시작된 이야기를<br />책과 강연으로 나눕니다.</h2>
+          <div className="authorCopy">
+            <p>샌드위치 가게 ‘더상큼하루’를 운영하며 삶에서 만난 사람과 마음을 기록합니다. 작은 가게에서 다시 일어선 이야기를 담은 에세이 『다섯 평이면 충분해』를 출간했습니다.</p>
+            <p>책과 강연을 통해 다시 시작하는 힘, 일하는 사람의 마음, 평범한 일상에서 발견한 온기를 나누고 싶습니다.</p>
+          </div>
+          <ul className="credentials">
+            <li><span>01</span><strong>『다섯 평이면 충분해』 저자</strong></li>
+            <li><span>02</span><strong>더상큼하루 대표</strong></li>
+            <li><span>03</span><strong>광화문·충무로 출간 강연 진행</strong></li>
+            <li><span>04</span><strong>북토크·인터뷰·콘텐츠 협업</strong></li>
+          </ul>
+        </section>
+
         <header className="sectionHeader">
           <h2>책속으로</h2>
           <p>『다섯 평이면 충분해』의 문장을 미리 읽어보세요.</p>
@@ -63,10 +78,22 @@ export function WriterLanding({ instagramVariant = false }: { instagramVariant?:
 
         <p className="source">출처: 『다섯 평이면 충분해』 · <a href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">교보문고 ‘책 속으로’ 및 추천사 원문 보기 ↗</a></p>
 
+        <section className="talks" aria-labelledby="talks-title">
+          <p className="eyebrow">Talk &amp; Collaboration</p>
+          <h2 id="talks-title">함께 나눌 수 있는 이야기</h2>
+          <p className="talksLead">책과 삶, 작은 가게와 다시 시작하는 힘을 주제로 독자와 조직을 만납니다.</p>
+          <div className="talkGrid">
+            <article><span>01</span><h3>무너진 자리에서<br />다시 시작하는 힘</h3><p>삶의 위기를 지나 작은 일상을 다시 세우는 과정과 회복의 힘</p></article>
+            <article><span>02</span><h3>작은 가게가<br />가르쳐준 것</h3><p>다섯 평의 공간에서 사람을 만나며 배운 일, 관계, 성장의 이야기</p></article>
+            <article><span>03</span><h3>샌드위치 사장의<br />책 출간 이야기</h3><p>평범한 하루의 기록이 한 권의 책과 강연으로 이어진 과정</p></article>
+          </div>
+          <p className="partnerNote">기업 · 기관 · 도서관 · 서점 · 커뮤니티의 북토크, 강연, 인터뷰와 콘텐츠 협업을 제안해 주세요.</p>
+        </section>
+
         <section className="cta">
           <div>
             <a className="primaryButton" href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">책 만나보기 ↗</a>
-            <a className="secondaryButton" href="/contact">강연·협업 문의 →</a>
+            <a className="secondaryButton" href={`/contact?source=${instagramVariant ? 'instagram' : 'threads'}`}>강연·협업 문의 →</a>
           </div>
           <p>신청서를 남겨주시면 확인 후 이메일로 회신드립니다.</p>
         </section>

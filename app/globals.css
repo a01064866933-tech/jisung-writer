@@ -13,6 +13,17 @@ a { color:inherit; }
 .primaryButton { background:var(--teal); color:white; }
 .hero .primaryButton { margin-top:24px; }
 .content { padding:72px 0 64px; }
+.eyebrow { margin:0 0 10px; color:var(--teal); font-size:12px; font-weight:750; letter-spacing:.12em; text-transform:uppercase; }
+.authorProfile { margin-bottom:74px; padding:38px 40px; border:1px solid var(--line); border-radius:20px; background:#fff; box-shadow:0 10px 28px rgba(4,50,61,.045); }
+.authorProfile h2 { margin:0 0 24px; font-size:29px; font-weight:720; line-height:1.4; letter-spacing:-.045em; }
+.authorCopy { display:grid; grid-template-columns:1fr 1fr; gap:26px; color:#455e66; font-size:15px; line-height:1.85; }
+.authorCopy p { margin:0; }
+.credentials { display:grid; grid-template-columns:1fr 1fr; gap:0; margin:30px 0 0; padding:0; border-top:1px solid #dce7e9; list-style:none; }
+.credentials li { display:flex; align-items:center; gap:13px; min-height:58px; border-bottom:1px solid #dce7e9; }
+.credentials li:nth-child(odd) { padding-right:20px; }
+.credentials li:nth-child(even) { padding-left:20px; border-left:1px solid #dce7e9; }
+.credentials span { color:var(--teal); font-size:11px; font-weight:750; }
+.credentials strong { font-size:14px; font-weight:650; }
 .sectionHeader h2 { margin:0; color:#006a85; font-size:29px; font-weight:720; letter-spacing:-.04em; }
 .sectionHeader p { margin:8px 0 30px; color:#66767c; font-size:15px; }
 .passages { display:grid; gap:18px; }
@@ -29,6 +40,15 @@ a { color:inherit; }
 .recommendation footer { padding-top:18px; border-top:1px solid #dcc5a6; font-size:14px; }
 .source { margin:0 0 28px; color:#66767c; font-size:12.5px; }
 .source a { text-underline-offset:4px; }
+.talks { margin:54px 0 30px; }
+.talks h2 { margin:0; font-size:29px; font-weight:720; letter-spacing:-.04em; }
+.talksLead { margin:8px 0 26px; color:#66767c; font-size:15px; }
+.talkGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.talkGrid article { min-height:235px; padding:26px 23px; border:1px solid var(--line); border-radius:16px; background:#fff; }
+.talkGrid span { color:var(--teal); font-size:12px; font-weight:750; }
+.talkGrid h3 { margin:28px 0 16px; font-size:19px; font-weight:700; line-height:1.5; letter-spacing:-.035em; }
+.talkGrid p { margin:0; color:#607178; font-size:14px; line-height:1.75; }
+.partnerNote { margin:16px 0 0; padding:18px 22px; border-radius:12px; background:#e7f4f8; color:#43636c; font-size:14px; text-align:center; }
 .cta { padding:28px 20px 24px; border:1px solid var(--line); border-radius:18px; background:#e7f4f8; text-align:center; }
 .cta > div { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
 .secondaryButton { border:1px solid #91a2a4; background:#fffefa; }
@@ -49,6 +69,13 @@ a { color:inherit; }
   .hero > p { margin-bottom:28px; }
   .heroPhoto { border-radius:16px; }
   .content { padding-top:60px; }
+  .authorProfile { margin-bottom:58px; padding:28px 22px; }
+  .authorProfile h2,.talks h2 { font-size:25px; }
+  .authorCopy { grid-template-columns:1fr; gap:12px; font-size:14px; }
+  .credentials { grid-template-columns:1fr; }
+  .credentials li:nth-child(odd),.credentials li:nth-child(even) { padding:0; border-left:0; }
+  .talkGrid { grid-template-columns:1fr; }
+  .talkGrid article { min-height:0; }
   .passage,.recommendation { padding:24px 21px; }
   .passage p,.recommendation p { font-size:15px; line-height:1.85; }
   .socials a { grid-template-columns:36px 1fr 24px; min-height:106px; padding:20px 18px; }
@@ -74,6 +101,9 @@ a { color:inherit; }
 .formGrid input:focus,.formGrid select:focus,.formGrid textarea:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(8,117,143,.1); }
 .fullField { grid-column:1 / -1; }
 .consent { display:flex; align-items:flex-start; gap:9px; margin:22px 0; color:#5c7076; font-size:13px; font-weight:400; }
+.privacyNotice { margin-top:22px; padding:16px 18px; border-radius:10px; background:#f3f7f7; color:#536a71; }
+.privacyNotice strong { display:block; margin-bottom:5px; color:#294c55; font-size:13px; }
+.privacyNotice p { margin:0; font-size:12px; line-height:1.7; }
 .consent input { margin-top:4px; accent-color:var(--teal); }
 .submitButton { width:100%; min-height:54px; border:0; border-radius:9px; background:var(--teal); color:#fff; font:inherit; font-size:15px; font-weight:700; cursor:pointer; }
 .submitButton:disabled { opacity:.6; cursor:wait; }

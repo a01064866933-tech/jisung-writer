@@ -34,7 +34,7 @@ export default function ContactPage() {
       notes: `제안 유형: ${String(data.get('proposalType') || '').trim()}\n장소: ${String(data.get('location') || '').trim() || '-'}\n예산: ${String(data.get('budget') || '').trim() || '-'}\n제안 내용: ${String(data.get('detail') || '').trim()}`,
       privacy_consent: true,
       terms_consent: true,
-      source: 'writer-landing'
+      source: document.referrer.includes('/instagram') || new URLSearchParams(window.location.search).get('source') === 'instagram' ? 'instagram' : 'threads'
     };
 
     try {
@@ -77,7 +77,11 @@ export default function ContactPage() {
             <label>예산 범위<input name="budget" maxLength={80} placeholder="예: 협의, 100만원" /></label>
             <label className="fullField">제안 내용 <b>*</b><textarea name="detail" maxLength={600} rows={6} required placeholder="행사 목적, 대상, 요청하시는 내용을 자세히 적어주세요." /></label>
           </div>
-          <label className="consent"><input name="privacy" type="checkbox" required /> 문의 답변을 위한 개인정보 수집·이용에 동의합니다.</label>
+          <div className="privacyNotice">
+            <strong>개인정보 수집·이용 안내</strong>
+            <p>수집 항목: 이름, 연락처, 이메일, 기관명 · 이용 목적: 강연·협업 문의 확인 및 회신 · 보관 기간: 문의 처리 후 1년</p>
+          </div>
+          <label className="consent"><input name="privacy" type="checkbox" required /> 위 개인정보 수집·이용에 동의합니다.</label>
           <button className="submitButton" type="submit" disabled={submitting}>{submitting ? '접수 중…' : '문의 접수하기'}</button>
           {message && <p className={success ? 'formMessage success' : 'formMessage'} role="status">{message}</p>}
         </form>
