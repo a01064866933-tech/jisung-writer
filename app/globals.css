@@ -51,7 +51,7 @@ h2 { margin:0; font-family:Georgia,'Noto Serif KR',serif; font-size:clamp(38px,5
 .connect { background:var(--navy); color:#fff; }
 .connect-grid { min-height:520px; display:grid; grid-template-columns:1.05fr .95fr; gap:80px; align-items:center; padding-block:90px; }
 .connect-copy p { color:rgba(255,255,255,.72); font-size:17px; margin-bottom:28px; }
-.links { display:grid; grid-template-columns:repeat(3,1fr); padding-block:70px; }
+.links { display:grid; grid-template-columns:repeat(2,1fr); padding-block:70px; }
 .links a { position:relative; padding:26px 22px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); border-right:1px solid var(--line); }
 .links a:last-child { border-right:0; }
 .links span { display:block; color:#777269; font-size:13px; }
