@@ -27,6 +27,15 @@ const instagramSocials = [
   { number: '02', title: 'Threads · 작가 계정', description: '박지성 · 생각과 일상의 기록', href: 'https://www.threads.com/@jisung.writer' },
 ];
 
+const moments = [
+  { src: '/events/lecture-story.jpg', category: '강연', title: '삶과 책을 잇는 이야기', alt: '박지성 작가가 자신의 삶과 책 이야기를 강연하는 모습' },
+  { src: '/events/launch-group.jpg', category: '출간 강연', title: '독자와 함께한 출간의 순간', alt: '박지성 작가와 독자들이 다섯 평이면 충분해를 들고 기념 촬영하는 모습' },
+  { src: '/events/lecture-audience.jpg', category: '북토크', title: '책을 중심으로 모인 시간', alt: '북토크 현장을 가득 채운 독자들과 강연 무대' },
+  { src: '/events/kyobo-lecture.jpg', category: '교보문고 강연', title: '다섯 평에서 시작된 이야기', alt: '교보문고 강연 무대에서 이야기하는 박지성 작가' },
+  { src: '/events/small-booktalk.jpg', category: '독자 모임', title: '작은 자리에서 깊게 나눈 이야기', alt: '작은 북토크에서 박지성 작가와 독자들이 책을 들고 웃는 모습' },
+  { src: '/events/reader-meeting.jpg', category: '독자 만남', title: '책으로 이어진 인연', alt: '박지성 작가와 독자들이 책을 들고 함께한 모습' },
+];
+
 export function WriterLanding({ instagramVariant = false }: { instagramVariant?: boolean }) {
   return (
     <main>
@@ -88,6 +97,23 @@ export function WriterLanding({ instagramVariant = false }: { instagramVariant?:
             <article><span>03</span><h3>샌드위치 사장의<br />책 출간 이야기</h3><p>평범한 하루의 기록이 한 권의 책과 강연으로 이어진 과정</p></article>
           </div>
           <p className="partnerNote">기업 · 기관 · 도서관 · 서점 · 커뮤니티의 북토크, 강연, 인터뷰와 콘텐츠 협업을 제안해 주세요.</p>
+        </section>
+
+        <section className="moments" aria-labelledby="moments-title">
+          <p className="eyebrow">Speaking &amp; Readers</p>
+          <h2 id="moments-title">강연과 독자 만남</h2>
+          <p className="momentsLead">한 사람의 경험이 서로의 용기가 되는 자리에서 독자와 만나고 있습니다.</p>
+          <div className="momentGrid">
+            {moments.map((moment) => (
+              <figure className="moment" key={moment.src}>
+                <img src={moment.src} alt={moment.alt} loading="lazy" />
+                <figcaption>
+                  <span>{moment.category}</span>
+                  <strong>{moment.title}</strong>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="cta">
