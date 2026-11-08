@@ -1,160 +1,81 @@
-'use client';
+const passages = [
+  {
+    title: '〈부엌에서 온 방울토마토〉 중에서',
+    body: '나는 컵과일을 만들며 가끔 생각한다. 저 토마토 안에는 부엌 할머니의 웃음이 들어 있다고. 그리고 그 웃음을 먹는 사람들은 모를 것이다. 자신이 지금 누군가의 온정을 함께 삼키고 있다는 것을. 배려는 보이지 않는 곳에서 작동하고, 온정은 그것을 받는 사람조차 알아채지 못할 때 가장 순수하다. 잘못 온 택배는 결국 제자리를 찾았다. 다만 그 자리가 처음 예정되었던 곳은 아니었다.',
+  },
+  {
+    title: '〈서른 살의 그녀와 스무 살의 나〉 중에서',
+    body: '그 순간 눈물이 왈칵 쏟아졌다. 물이 차오르던 그 밤을 이 공간에서 혼자 버텼을 그녀를 생각하니 가슴이 먹먹했다. 나는 서둘러 매장으로 달려갔다. 샌드위치를 정성껏 만들고 그녀가 좋아할 것 같은 과일도 함께 챙겼다. 그리고 잘 말린 이불과 함께 집 안에 놓아두고 돌아왔다. 늦은 밤 그녀가 귀가했을 때 차가운 공기 대신 뽀송해진 이불과 누군가의 마음이 먼저 느껴졌으면 했다. 이 상황이 조금 덜 외롭고, 조금 덜 두려웠으면 하는 마음이었다.',
+  },
+  {
+    title: '〈복채보다 깊은 인연〉 중에서',
+    body: '사람은 혼자 만들어지는 존재가 아니라, 인연과 운명이 스쳐 지나갈 때마다 더해지는 마음들로 조금씩 완성되어가는지도 모른다. 삶의 무게가 어깨를 짓누르는 날에도 내가 다시 도마 앞에 설 수 있는 것은 그 순간마다 나를 붙잡아준 사람들 덕분이다. 대운이란 어쩌면 하늘에서 떨어지는 행운이 아니라 내 곁에 남은 인연들이 나를 앞으로 밀어주는 힘일지도 모른다. 나는 오늘도 나를 버티게 해준 마음들을 안고 살아간다. 그리고 조용히 웃는다.',
+  },
+  {
+    title: '〈세 바퀴의 기도〉 중에서',
+    body: '다섯 평 남짓한 작은 매장이지만 이 안은 이렇듯 보이지 않는 기도와 응원의 결들로 조금씩 자라나며 단단해지고 있다고 믿는다. 오늘도 나를 모르는 누군가가 어떤 모퉁이에서 가만히 내 행복을 빌어주고 있을지도 모른다.\n\n실체를 알 수 없는 다정함을 상상하는 것만으로도 자리를 박차고 일어서는 용기가 생긴다. 나는 잘 살아내고 싶다. 그 마음들이 헛되지 않았다는 것을 내 삶으로 증명하고 싶다. 할머니가 골목에 남기고 간 그 따뜻한 기도의 바통을 이어받는다. 그리고 다시 누군가의 마음이 절실한 곳을 향해, 샌드위치 한 조각에 온기를 담아 조심스레 내어놓는다. 그것이 내가 주방을 지키며 배운, 사랑을 실천하는 ‘사랑의 문법’이다.',
+  },
+];
 
-import { FormEvent, useState } from 'react';
-
-const bookUrl = 'https://product.kyobobook.co.kr/detail/S000220161919?utm_source=threads&utm_medium=social&utm_campaign=author_profile';
-const supabaseUrl = 'https://bdkgplecpebsuznvbaan.supabase.co';
-const supabaseAnonKey = 'sb_publishable_a1J86gLTHEnzRfN8_-5CFQ_tbtcjZOi';
-const writerInstagram = 'https://www.instagram.com/jisung_writer/';
-const threadsUrl = 'https://www.threads.com/@freshday_sandwich';
-const businessUrl = 'https://freshday-link.vercel.app/';
+const socials = [
+  { number: '01', title: '인스타그램 · 샌드위치 계정', description: '더상큼하루 · 단체주문과 창업클래스', href: 'https://www.instagram.com/freshday_sandwich/' },
+  { number: '02', title: '인스타그램 · 작가 계정', description: '박지성 · 책과 글의 기록', href: 'https://www.instagram.com/jisung_writer/' },
+];
 
 export default function Home() {
-  const [submitting, setSubmitting] = useState(false);
-  const [formMessage, setFormMessage] = useState('');
-  const [success, setSuccess] = useState(false);
-
-  async function submitProposal(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    if (data.get('website')) return;
-    setSubmitting(true);
-    setFormMessage('');
-    const now = new Date();
-    const inquiryCode = `FW-${String(now.getFullYear()).slice(-2)}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
-    const detail = String(data.get('detail') || '').trim();
-    const location = String(data.get('location') || '').trim();
-    const budget = String(data.get('budget') || '').trim();
-    const proposalType = String(data.get('proposalType') || '').trim();
-    const payload = {
-      inquiry_code: inquiryCode,
-      lead_type: 'writer',
-      status: '신규 문의',
-      contact_name: String(data.get('contactName') || '').trim(),
-      phone: String(data.get('phone') || '').trim(),
-      company: String(data.get('organization') || '').trim(),
-      email: String(data.get('email') || '').trim(),
-      event_date: data.get('eventDate') || null,
-      package_type: null,
-      notes: `제안 유형: ${proposalType}\n장소: ${location || '-'}\n예산: ${budget || '-'}\n제안 내용: ${detail}`,
-      privacy_consent: true,
-      terms_consent: true,
-      source: document.referrer ? new URL(document.referrer).hostname : 'direct'
-    };
-    try {
-      const response = await fetch(`${supabaseUrl}/rest/v1/inquiries`, {
-        method: 'POST',
-        headers: { apikey: supabaseAnonKey, Authorization: `Bearer ${supabaseAnonKey}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) throw new Error('request failed');
-      form.reset();
-      setSuccess(true);
-      setFormMessage(`문의번호 ${inquiryCode}로 접수되었습니다. 확인 후 연락드리겠습니다.`);
-    } catch {
-      setFormMessage('자동 접수가 지연되고 있습니다. 작가 인스타그램 메시지로 제안 내용을 보내주세요.');
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
   return (
     <main>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="shell hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">Writer · Sandwich Maker · Speaker</p>
-            <h1 id="hero-title">낮에는 샌드위치를 만들고,<br />밤에는 글을 씁니다.</h1>
-            <p className="lead">삶이 나를 다 무너뜨렸다고 생각한 날,<br className="desktop-break" /> 다섯 평의 작은 가게가 다시 살아갈 이유가 되어주었습니다.</p>
-            <p className="signature">『다섯 평이면 충분해』 저자 박지성입니다.</p>
-            <div className="hero-actions">
-              <a className="button primary" href={bookUrl} target="_blank" rel="noreferrer">책 만나보기 <span aria-hidden="true">→</span></a>
-              <a className="button ghost" href="#connect">강연·협업 문의</a>
-            </div>
-          </div>
-          <div className="book-scene" aria-label="다섯 평이면 충분해 책 소개">
-            <article className="book-cover">
-              <span className="book-topline">박지성 에세이</span>
-              <strong>다섯 평이면<br />충분해</strong>
-              <span className="book-subtitle">전 재산 500만 원으로 다시 일어선<br />한 여성의 생활 에세이</span>
-              <span className="book-author">박지성</span>
+      <section className="hero wrap">
+        <h1>낮에는 샌드위치를 만들고,<br />밤에는 글을 씁니다.</h1>
+        <h2>낮샌밤글 박지성</h2>
+        <p>작가 / 더상큼하루 대표</p>
+        <img className="heroPhoto" src="/book-hero.png" alt="박지성 작가의 책 다섯 평이면 충분해" />
+        <a className="primaryButton" href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">책 구매하러 가기 ↗</a>
+      </section>
+
+      <section className="content wrap">
+        <header className="sectionHeader">
+          <h2>책속으로</h2>
+          <p>『다섯 평이면 충분해』의 문장을 미리 읽어보세요.</p>
+        </header>
+        <div className="passages">
+          {passages.map((passage, index) => (
+            <article className="passage" key={passage.title}>
+              <span className="number">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{passage.title}</h3>
+              {passage.body.split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </article>
-            <p className="scene-note">첫 에세이 · 달먹는토끼</p>
-          </div>
+          ))}
         </div>
-      </section>
 
-      <section className="story shell" aria-labelledby="story-title">
-        <div className="section-index">01</div>
-        <div><p className="eyebrow dark">My Story</p><h2 id="story-title">무너진 자리에서<br />다시 시작한 이야기</h2></div>
-        <div className="story-copy">
-          <p>혼자 두 아이를 키우며 작은 샌드위치 가게를 지켰습니다. 새벽마다 음식을 만들고, 밤이면 하루를 문장으로 옮겼습니다.</p>
-          <p>특별한 성공담보다 넘어지고 다시 일어서는 평범한 사람의 힘을 이야기하고 싶습니다. 가게에서 만난 사람들, 버텨낸 시간, 다시 시작하는 마음을 글과 강연으로 나눕니다.</p>
-        </div>
-      </section>
+        <blockquote className="recommendation">
+          <span className="quote">“</span>
+          <h3>이철환 작가의 추천사</h3>
+          <p>이렇게 저렇게 살아가는 사람들의 삶의 모습을 가만히 바라보았습니다. 어떤 삶을 살아가든 사람들은 각자 그가 할 수 있는 만큼 최선을 다해 살았습니다. 박지성 작가님의 글을 읽으며 최선을 다하는 삶 너머의 삶이 보였습니다. 그녀의 이야기는 삶이 끝날때까지 지키고 싶은 저의 바람과 맞닿아 있었습니다.</p>
+          <p>긴 숨을 내쉬며 갈 길이 멀었구나 생각했습니다. 그녀의 섬세하고 아름다운 글이 민들레 한숨에 가닿기를 소망합니다. 해바라기 눈높이로 바라보아야 볼 수 있는 세계의 진실이 있었습니다. 민들레의 눈높이로 바라보아야 비로소 볼 수 있는 세계의 진실이 있었습니다.</p>
+          <footer>이철환(소설가) · 『연탄길』, 『위로』 작가</footer>
+        </blockquote>
 
-      <section className="book-section" aria-labelledby="book-title">
-        <div className="shell book-layout">
-          <div className="quote-mark" aria-hidden="true">“</div>
+        <p className="source">출처: 『다섯 평이면 충분해』 · <a href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">교보문고 ‘책 속으로’ 및 추천사 원문 보기 ↗</a></p>
+
+        <section className="cta">
           <div>
-            <p className="eyebrow warm">The Book</p>
-            <h2 id="book-title">다섯 평이면 충분해</h2>
-            <blockquote>삶이 나를 다 무너뜨렸다고 생각한 날,<br />다섯 평이 나를 다시 살게 했다.</blockquote>
-            <p className="book-description">혼자 가게를 지키며 버텨낸 시간, 엄마로 살아낸 시간, 넘어지고 다시 일어섰던 시간을 솔직하게 담았습니다. 괜찮은 척 하루를 견디는 사람에게 조용한 용기와 위로가 되기를 바랍니다.</p>
-            <a className="text-link" href={bookUrl} target="_blank" rel="noreferrer">교보문고에서 책 보기 <span aria-hidden="true">↗</span></a>
+            <a className="primaryButton" href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">책 만나보기 ↗</a>
+            <a className="secondaryButton" href="mailto:a01064866933@naver.com?subject=%EB%B0%95%EC%A7%80%EC%84%B1%20%EC%9E%91%EA%B0%80%20%EA%B0%95%EC%97%B0%C2%B7%ED%98%91%EC%97%85%20%EB%AC%B8%EC%9D%98">강연·협업 문의 →</a>
           </div>
-        </div>
+          <p>신청서를 남겨주시면 확인 후 이메일로 회신드립니다.</p>
+        </section>
+
+        <nav className="socials" aria-label="인스타그램 계정">
+          {socials.map((social) => (
+            <a href={social.href} target="_blank" rel="noreferrer" key={social.number}>
+              <span className="socialNumber">{social.number}</span>
+              <span className="socialCopy"><strong>{social.title}</strong><small>{social.description}</small></span>
+              <span className="arrow">↗</span>
+            </a>
+          ))}
+        </nav>
       </section>
-
-      <section className="topics shell" aria-labelledby="topics-title">
-        <div className="topics-heading">
-          <p className="eyebrow dark">Talk & Collaboration</p>
-          <h2 id="topics-title">함께 나눌 수 있는 이야기</h2>
-          <p>책과 삶, 작은 가게와 다시 시작하는 힘을 주제로 사람들과 만납니다.</p>
-        </div>
-        <div className="topic-grid">
-          <article><span>01</span><h3>무너진 뒤의<br />다시 시작</h3><p>삶의 위기를 지나 작은 일상을 다시 세우는 과정과 회복의 힘</p></article>
-          <article><span>02</span><h3>작은 가게가<br />가르쳐준 것</h3><p>전 재산 500만 원, 다섯 평의 공간에서 배운 생존과 성장</p></article>
-          <article><span>03</span><h3>평범한 삶을<br />한 권의 책으로</h3><p>삶의 기록이 원고가 되고 출간과 강연으로 이어진 실제 경험</p></article>
-        </div>
-      </section>
-
-      <section className="connect" id="connect" aria-labelledby="connect-title">
-        <div className="shell connect-grid">
-          <div><p className="eyebrow">Meet Jisung</p><h2 id="connect-title">사람을 만나고,<br />이야기를 나누고 싶습니다.</h2></div>
-          <div className="connect-copy">
-            <p>북토크, 강연, 인터뷰, 콘텐츠 협업의 목적과 일정, 장소를 남겨주시면 확인 후 답변드리겠습니다.</p>
-            <form className="proposal-form" onSubmit={submitProposal}>
-              <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-              <div className="proposal-grid">
-                <label>기관·회사명<input name="organization" maxLength={100} /></label>
-                <label>담당자 이름 *<input name="contactName" maxLength={60} required /></label>
-                <label>연락처 *<input name="phone" type="tel" maxLength={20} required /></label>
-                <label>이메일 *<input name="email" type="email" maxLength={160} required /></label>
-                <label>제안 유형 *<select name="proposalType" required><option value="">선택해 주세요</option><option>북토크</option><option>강연</option><option>인터뷰</option><option>콘텐츠 협업</option><option>기타</option></select></label>
-                <label>희망 날짜<input name="eventDate" type="date" /></label>
-                <label>장소<input name="location" maxLength={120} /></label>
-                <label>예산 범위<input name="budget" maxLength={80} placeholder="예: 협의, 100만원" /></label>
-                <label className="full">제안 내용 *<textarea name="detail" maxLength={600} rows={5} required /></label>
-              </div>
-              <label className="proposal-consent"><input name="privacy" type="checkbox" required /> 문의 답변을 위한 개인정보 수집·이용에 동의합니다.</label>
-              <button className="button light" type="submit" disabled={submitting}>{submitting ? '접수 중…' : '강연·협업 문의 접수'}</button>
-              {formMessage && <p className={success ? 'proposal-message success' : 'proposal-message'} role="status">{formMessage}</p>}
-            </form>
-            <a className="instagram-fallback" href={writerInstagram} target="_blank" rel="noreferrer">작가 Instagram으로 문의하기 ↗</a>
-          </div>
-        </div>
-      </section>
-
-      <nav className="links shell" aria-label="박지성 관련 링크">
-        <a href={threadsUrl} target="_blank" rel="noreferrer"><span>생각과 일상의 기록</span><strong>Threads</strong><i aria-hidden="true">↗</i></a>
-        <a href={writerInstagram} target="_blank" rel="noreferrer"><span>책과 작가 활동</span><strong>Instagram</strong><i aria-hidden="true">↗</i></a>
-        <a href={businessUrl} target="_blank" rel="noreferrer"><span>클래스·단체주문</span><strong>더상큼하루</strong><i aria-hidden="true">↗</i></a>
-      </nav>
-
-      <footer><div className="shell footer-inner"><strong>박지성</strong><span>Writer of 『다섯 평이면 충분해』</span><span>© 2026 Jisung Park</span></div></footer>
     </main>
   );
 }
