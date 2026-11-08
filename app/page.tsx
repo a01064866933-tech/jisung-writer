@@ -22,7 +22,12 @@ const socials = [
   { number: '02', title: '인스타그램 · 작가 계정', description: '박지성 · 책과 글의 기록', href: 'https://www.instagram.com/jisung_writer/' },
 ];
 
-export default function Home() {
+const instagramSocials = [
+  socials[0],
+  { number: '02', title: 'Threads · 작가 계정', description: '박지성 · 생각과 일상의 기록', href: 'https://www.threads.com/@jisung.writer' },
+];
+
+export function WriterLanding({ instagramVariant = false }: { instagramVariant?: boolean }) {
   return (
     <main>
       <section className="hero wrap">
@@ -66,8 +71,8 @@ export default function Home() {
           <p>신청서를 남겨주시면 확인 후 이메일로 회신드립니다.</p>
         </section>
 
-        <nav className="socials" aria-label="인스타그램 계정">
-          {socials.map((social) => (
+        <nav className="socials" aria-label="박지성 관련 계정">
+          {(instagramVariant ? instagramSocials : socials).map((social) => (
             <a href={social.href} target="_blank" rel="noreferrer" key={social.number}>
               <span className="socialNumber">{social.number}</span>
               <span className="socialCopy"><strong>{social.title}</strong><small>{social.description}</small></span>
@@ -78,4 +83,8 @@ export default function Home() {
       </section>
     </main>
   );
+}
+
+export default function Home() {
+  return <WriterLanding />;
 }

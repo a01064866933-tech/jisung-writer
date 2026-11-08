@@ -1,1 +1,5 @@
-export { default } from '../page';
+import { WriterLanding } from '../page';
+
+export default function InstagramLanding() {
+  return <WriterLanding instagramVariant />;
+}
