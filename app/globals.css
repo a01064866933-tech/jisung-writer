@@ -52,10 +52,8 @@ a { color:inherit; }
 .moments { margin:68px 0 34px; }
 .moments h2 { margin:0; font-size:29px; font-weight:720; letter-spacing:-.04em; }
 .momentsLead { margin:8px 0 26px; color:#66767c; font-size:15px; }
-.momentGrid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:210px; gap:14px; }
-.moment { position:relative; grid-column:span 4; min-width:0; margin:0; overflow:hidden; border-radius:16px; background:#dce9eb; box-shadow:0 8px 22px rgba(4,50,61,.07); }
-.moment:nth-child(1) { grid-column:span 5; grid-row:span 2; }
-.moment:nth-child(2),.moment:nth-child(3) { grid-column:span 7; }
+.momentGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.moment { position:relative; min-width:0; aspect-ratio:16 / 10; margin:0; overflow:hidden; border-radius:16px; background:#dce9eb; box-shadow:0 8px 22px rgba(4,50,61,.07); }
 .moment img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .45s ease; }
 .moment:hover img { transform:scale(1.025); }
 .moment::after { content:""; position:absolute; inset:auto 0 0; height:48%; background:linear-gradient(transparent,rgba(2,29,35,.82)); pointer-events:none; }
@@ -91,8 +89,7 @@ a { color:inherit; }
   .talkGrid article { min-height:0; }
   .moments { margin-top:56px; }
   .momentGrid { grid-template-columns:1fr; grid-auto-rows:auto; gap:12px; }
-  .moment,.moment:nth-child(1),.moment:nth-child(2),.moment:nth-child(3) { grid-column:auto; grid-row:auto; aspect-ratio:4 / 3; }
-  .moment:nth-child(1),.moment:nth-child(4) { aspect-ratio:4 / 5; }
+  .moment { aspect-ratio:16 / 10; }
   .moment figcaption { right:16px; bottom:15px; left:16px; }
   .passage,.recommendation { padding:24px 21px; }
   .passage p,.recommendation p { font-size:15px; line-height:1.85; }
