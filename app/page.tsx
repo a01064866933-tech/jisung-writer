@@ -29,7 +29,7 @@ export default function Home() {
         <h1>낮에는 샌드위치를 만들고,<br />밤에는 글을 씁니다.</h1>
         <h2>낮샌밤글 박지성</h2>
         <p>작가 / 더상큼하루 대표</p>
-        <img className="heroPhoto" src="/book-hero.png" alt="박지성 작가의 책 다섯 평이면 충분해" />
+        <img className="heroPhoto" src="/book-hero.jpg" alt="박지성 작가의 책 다섯 평이면 충분해" />
         <a className="primaryButton" href="https://product.kyobobook.co.kr/detail/S000220161919" target="_blank" rel="noreferrer">책 구매하러 가기 ↗</a>
       </section>
 
