@@ -6,8 +6,8 @@ const bookUrl = 'https://product.kyobobook.co.kr/detail/S000220161919?utm_source
 const supabaseUrl = 'https://bdkgplecpebsuznvbaan.supabase.co';
 const supabaseAnonKey = 'sb_publishable_a1J86gLTHEnzRfN8_-5CFQ_tbtcjZOi';
 const writerInstagram = 'https://www.instagram.com/jisung_writer/';
-const sandwichInstagram = 'https://www.instagram.com/freshday_sandwich/';
-const threadsUrl = 'https://www.threads.com/@jisung.writer';
+const threadsUrl = 'https://www.threads.com/@freshday_sandwich';
+const businessUrl = 'https://freshday-link.vercel.app/';
 
 export default function Home() {
   const [submitting, setSubmitting] = useState(false);
@@ -149,8 +149,9 @@ export default function Home() {
       </section>
 
       <nav className="links shell" aria-label="박지성 관련 링크">
-        <a href={sandwichInstagram} target="_blank" rel="noreferrer"><span>클래스·단체주문</span><strong>Instagram · @freshday_sandwich</strong><i aria-hidden="true">↗</i></a>
-        <a href={threadsUrl} target="_blank" rel="noreferrer"><span>생각과 일상의 기록</span><strong>Threads · @jisung.writer</strong><i aria-hidden="true">↗</i></a>
+        <a href={threadsUrl} target="_blank" rel="noreferrer"><span>생각과 일상의 기록</span><strong>Threads</strong><i aria-hidden="true">↗</i></a>
+        <a href={writerInstagram} target="_blank" rel="noreferrer"><span>책과 작가 활동</span><strong>Instagram</strong><i aria-hidden="true">↗</i></a>
+        <a href={businessUrl} target="_blank" rel="noreferrer"><span>클래스·단체주문</span><strong>더상큼하루</strong><i aria-hidden="true">↗</i></a>
       </nav>
 
       <footer><div className="shell footer-inner"><strong>박지성</strong><span>Writer of 『다섯 평이면 충분해』</span><span>© 2026 Jisung Park</span></div></footer>

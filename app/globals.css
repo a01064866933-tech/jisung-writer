@@ -65,7 +65,7 @@ h2 { margin:0; font-family:Georgia,'Noto Serif KR',serif; font-size:clamp(38px,5
 .proposal-message.success { color:#d9f4df!important; }
 .instagram-fallback { width:max-content; padding-bottom:3px; border-bottom:1px solid rgba(255,255,255,.4); color:rgba(255,255,255,.74); font-size:13px; }
 .honeypot { position:absolute!important; left:-9999px!important; width:1px!important; height:1px!important; opacity:0!important; }
-.links { display:grid; grid-template-columns:repeat(2,1fr); padding-block:70px; }
+.links { display:grid; grid-template-columns:repeat(3,1fr); padding-block:70px; }
 .links a { position:relative; padding:26px 22px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); border-right:1px solid var(--line); }
 .links a:last-child { border-right:0; }
 .links span { display:block; color:#777269; font-size:13px; }
